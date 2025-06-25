@@ -1,4 +1,6 @@
 <?php
+// Only use via htmx include
+$_SERVER['HTTP_HX_REQUEST'] ?? exit();
 
 ini_set('user_agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0');
 

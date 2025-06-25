@@ -37,7 +37,7 @@
                   size="10" />
                     <!-- have a button POST a click via AJAX -->
               <button
-                hx-post="/fetch.php"
+                hx-post="fetch.php"
                 hx-target="#info-detail"
                 hx-swap="innerHTML">
                 Click Me
