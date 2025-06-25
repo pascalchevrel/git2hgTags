@@ -1,3 +1,6 @@
+<?php
+require_once 'functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +37,8 @@
                   required
                   minlength="4"
                   maxlength="50"
-                  size="10" />
+                  size="10"
+                  value="<?php echo isset($_GET['tag']) ? secureText($_GET['tag']) : ''; ?>"/>
                     <!-- have a button POST a click via AJAX -->
               <button
                 hx-post="fetch.php"
@@ -44,7 +48,17 @@
               </button>
               </form>
         </div>
-        <article id="info-detail">Result</article>
+        <article id="info-detail">
+        <?php
+            if (isset($_GET['tag'])) {
+                $_SERVER['HTTP_HX_REQUEST'] = 'true';
+                $_POST['tag'] = $_GET['tag'];
+                include 'fetch.php';
+            } else {
+                echo 'Result';
+            }
+        ?>
+       </article>
     </main>
 
 
