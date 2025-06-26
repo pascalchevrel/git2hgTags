@@ -50,7 +50,7 @@ require_once 'functions.php';
                 hx-post="fetch.php"
                 hx-target="#info-detail"
                 hx-swap="innerHTML">
-                Click Me
+                Search
               </button>
               </form>
         </div>
