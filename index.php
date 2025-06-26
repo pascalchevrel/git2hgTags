@@ -14,8 +14,14 @@ require_once 'functions.php';
         #info-detail {
             margin-top: 2em;
         }
+        article {
+            padding: 0.5em;
+        }
         th {
             font-weight: 400;
+        }
+        td:has(.smallbutton) {
+            text-align: right;
         }
         .smallbutton {
             padding: 0.3em 0.5em;

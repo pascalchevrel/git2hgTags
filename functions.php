@@ -27,3 +27,20 @@ function getJson(string $url): array
         ? []
         : json_decode($data, true, 512, JSON_THROW_ON_ERROR);
 }
+
+/**
+ * Turn bug numbers in a string into Bugzilla links
+ */
+function linkify(string $text): ?string
+{
+    return preg_replace_callback(
+        "/bug +\d+/i",
+        fn(array $matches) => '<a href="'
+        . 'https://bugzilla.mozilla.org/'
+        . trim(str_ireplace('bug', '', (string) $matches[0]))
+        . '">'
+        . $matches[0]
+        . '</a>',
+        $text
+    );
+}

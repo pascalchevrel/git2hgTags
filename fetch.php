@@ -19,6 +19,7 @@ $git_sha = $data['sha'];
 $message = $data['commit']['message'];
 $hg_sha = getJson('https://lando.moz.tools/api/git2hg/firefox/' . $git_sha)['hg_hash'];
 $commit = explode("\n", $message)['0'];
+$commit = linkify($commit);
 
 ?>
 <script>
@@ -67,7 +68,7 @@ $commit = explode("\n", $message)['0'];
     </tr>
     <tr>
       <th scope="row">Commit</th>
-      <td><?=$commit?></td>
+      <td colspan="2"><?=$commit?></td>
     </tr>
   </tbody>
 </table>
