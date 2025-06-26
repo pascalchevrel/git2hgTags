@@ -8,6 +8,7 @@ require_once 'functions.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Get an hg sha1 for a tag</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="opensearch.xml" title="Search Firefox tag/commit"/>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.5/dist/htmx.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <style>
@@ -37,14 +38,16 @@ require_once 'functions.php';
                 <label for="name">Enter Firefox tag:</label>
 
                 <input
-                  type="text"
+                  type="search"
                   id="tag"
                   name="tag"
                   required
                   minlength="4"
                   maxlength="50"
                   size="10"
-                  value="<?php echo isset($_GET['tag']) ? secureText($_GET['tag']) : ''; ?>"/>
+                  value="<?php echo isset($_GET['tag']) ? secureText($_GET['tag']) : ''; ?>"
+                  placeholder="Search a Firefox tag…"
+                  required />
                     <!-- have a button POST a click via AJAX -->
               <button
                 hx-post="fetch.php"
