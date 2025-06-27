@@ -19,7 +19,7 @@ $data = getJson('https://api.github.com/repos/mozilla-firefox/firefox/commits/' 
 
 if (empty($data)) {
     echo '<article id="info-detail" class="">';
-    echo '<i>This is not a known Firefox tag</i>';
+    echo "<i><b>{$tag}</b> is not a valid Firefox tag</i>";
     echo '</article>';
     return;
 }
