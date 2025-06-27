@@ -1,15 +1,9 @@
 <?php
 require_once 'functions.php';
-
-$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443)
-    ? 'https://'
-    : 'http://';
-$url = secureText($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-
+$url = parse_url('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,9 +33,7 @@ $url = secureText($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
             padding: 0.3em 0.5em;
         }
     </style>
-
 </head>
-
 <body>
     <main class="container">
         <div>
@@ -59,13 +51,13 @@ $url = secureText($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                   value="<?php echo isset($_GET['tag']) ? secureText($_GET['tag']) : ''; ?>"
                   placeholder="Search a Firefox tag…" />
                     <!-- have a button POST a click via AJAX -->
-              <button
-                hx-post="fetch.php"
-                hx-target="#info-detail"
-                hx-swap="innerHTML">
-                Search
-              </button>
-              </form>
+                <button
+                    hx-post="fetch.php"
+                    hx-target="#info-detail"
+                    hx-swap="innerHTML">
+                    Search
+                </button>
+            </form>
         </div>
         <article id="info-detail">
         <?php
@@ -79,9 +71,5 @@ $url = secureText($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         ?>
        </article>
     </main>
-
-
-
 </body>
-
 </html>
