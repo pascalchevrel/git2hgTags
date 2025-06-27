@@ -33,29 +33,30 @@ $commit_type = is_sha1($tag) ? 'Commit' : 'Tag';
 
 ?>
 <script>
-    function copyToClipBoard(targetId) {
-        const element = document.getElementById(targetId);
-        if (!element) {
-            alert("Element not found.");
-            return;
-        }
-
-        const text = element.innerText || element.textContent;
-        if (!navigator.clipboard) {
-            // Fallback for very old browsers
-            const textarea = document.createElement("textarea");
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-        } else {
-            navigator.clipboard.writeText(text).then(
-                () => alert("Copied!"),
-                (err) => alert("Failed to copy: " + err)
-            );
-        }
+function copyToClipBoard(targetId, buttonElement) {
+    const element = document.getElementById(targetId);
+    if (!element) {
+        console.error("Element not found.");
+        return;
     }
+
+    const text = element.innerText || element.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = buttonElement.innerText;
+        const originalBackground = buttonElement.style.backgroundColor;
+
+        buttonElement.innerText = "Copied!";
+        buttonElement.style.backgroundColor = "green";
+
+        setTimeout(() => {
+            buttonElement.innerText = originalText;
+            buttonElement.style.backgroundColor = originalBackground;
+        }, 1000);
+    }).catch((err) => {
+        console.error("Failed to copy: ", err);
+    });
+}
+
 </script>
 <article id="info-detail">
     <table>
@@ -64,7 +65,7 @@ $commit_type = is_sha1($tag) ? 'Commit' : 'Tag';
                 <th scope="row"><?=$commit_type?></th>
                 <td><span id="fx_tag"><?=$tag?></span></td>
                 <td>
-                    <button onclick="copyToClipBoard('fx_tag')" class="smallbutton">Copy</button>
+                    <button id="btn_fx_tag" onclick="copyToClipBoard('fx_tag', this)" class="smallbutton">Copy</button>
                 </td>
             </tr>
             <tr>
@@ -73,7 +74,7 @@ $commit_type = is_sha1($tag) ? 'Commit' : 'Tag';
                     <a href="https://github.com/mozilla-firefox/firefox/commit/<?=$git_sha?>"><span id="git_sha"><?=$git_sha?></span></a>
                 </td>
                 <td>
-                    <button onclick="copyToClipBoard('git_sha')" class="smallbutton">Copy</button>
+                    <button onclick="copyToClipBoard('git_sha', this)" class="smallbutton">Copy</button>
                 </td>
             </tr>
             <tr>
@@ -81,7 +82,7 @@ $commit_type = is_sha1($tag) ? 'Commit' : 'Tag';
                 <td><a href="https://hg-edge.mozilla.org/mozilla-unified/rev/<?=$hg_sha?>"><span id="hg_sha"><?=$hg_sha?></span></a>
             </td>
             <td>
-                <button onclick="copyToClipBoard('hg_sha')" class="smallbutton">Copy</button>
+                <button onclick="copyToClipBoard('hg_sha', this)" class="smallbutton">Copy</button>
             </td>
             </tr>
             <tr>
