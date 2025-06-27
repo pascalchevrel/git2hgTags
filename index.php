@@ -14,11 +14,14 @@ $url = parse_url('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], P
         href="<?=$url?>opensearch.xml"
         title="Search Firefox tag/commit"
     />
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.5/dist/htmx.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.5/dist/htmx.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" defer>
     <style>
         #info-detail {
             margin-top: 2em;
+        }
+        .hidden  {
+            visibility: hidden;
         }
         article {
             padding: 0.5em;
@@ -53,23 +56,20 @@ $url = parse_url('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], P
                     <!-- have a button POST a click via AJAX -->
                 <button
                     hx-post="fetch.php"
-                    hx-target="#info-detail"
+                    hx-target="#target"
                     hx-swap="innerHTML">
                     Search
                 </button>
             </form>
         </div>
-        <article id="info-detail">
+        <div id="target">
         <?php
             if (isset($_GET['tag'])) {
                 $_SERVER['HTTP_HX_REQUEST'] = 'true';
-                $_POST['tag'] = $_GET['tag'];
                 include 'fetch.php';
-            } else {
-                echo 'Result';
             }
         ?>
-       </article>
+        </div>
     </main>
 </body>
 </html>

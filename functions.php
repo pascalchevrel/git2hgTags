@@ -21,7 +21,7 @@ function secureText(string $string): string
 
 function getJson(string $url): array
 {
-    $data = @file_get_contents($url);
+    $data = file_get_contents($url);
 
     return empty($data)
         ? []
@@ -43,4 +43,8 @@ function linkify(string $text): ?string
         . '</a>',
         $text
     );
+}
+
+function is_sha1($str) {
+    return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
 }
