@@ -20,9 +20,20 @@ $url = parse_url('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], P
         #info-detail {
             margin-top: 2em;
         }
-        .hidden  {
-            visibility: hidden;
+        form {
+            display:flex;
+            align-items: baseline;
         }
+
+        form label {
+            white-space: nowrap;
+        }
+        form label,
+        form input,
+        form buttom {
+            margin: 0.5em
+        }
+
         article {
             padding: 0.5em;
         }
